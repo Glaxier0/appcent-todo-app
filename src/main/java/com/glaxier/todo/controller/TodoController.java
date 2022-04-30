@@ -1,6 +1,7 @@
 package com.glaxier.todo.controller;
 
 import com.glaxier.todo.dto.request.UpdateTodo;
+import com.glaxier.todo.dto.response.TodoResponse;
 import com.glaxier.todo.model.Todo;
 import com.glaxier.todo.model.Users;
 import com.glaxier.todo.security.jwt.JwtUtils;
@@ -29,7 +30,7 @@ public class TodoController {
     PartialUpdate partialUpdate;
 
     @PostMapping("/todos")
-    public ResponseEntity<Todo> saveTodo(@RequestBody @Valid Todo todo) {
+    public ResponseEntity<TodoResponse> saveTodo(@RequestBody @Valid Todo todo) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> users = userService.findById(userDetails.getId());
         if (users.isPresent()) {
@@ -40,7 +41,9 @@ public class TodoController {
         ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
         todo.setCreatedAt(now);
         todo.setUpdatedAt(now);
-        return new ResponseEntity<>(todoService.save(todo), HttpStatus.CREATED);
+        todoService.save(todo);
+        return new ResponseEntity<>(new TodoResponse(todo.getId(), todo.getDescription(),
+                todo.isCompleted(), todo.getCreatedAt(), todo.getUpdatedAt()), HttpStatus.CREATED);
     }
 
     @GetMapping("/todos")
@@ -67,15 +70,16 @@ public class TodoController {
     }
 
     @PatchMapping("/todos/{id}")
-    public ResponseEntity<Todo> updateTask(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo todo) {
+    public ResponseEntity<Todo> updateTask(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo updateTodo) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
         Optional<Todo> todoData = todoService.findByIdAndUserId(id, userId);
 
         if (todoData.isPresent()) {
-            todoData = partialUpdate.todoPartialUpdate(todo, todoData);
-            todoData.get().setUpdatedAt(ZonedDateTime.now(ZoneOffset.UTC));
-            todoService.save(todoData.get());
+            Todo todo = todoData.get();
+            todo = partialUpdate.todoPartialUpdate(updateTodo, todo);
+            todo.setUpdatedAt(ZonedDateTime.now(ZoneOffset.UTC));
+            todoService.save(todo);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
