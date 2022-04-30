@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -18,10 +17,11 @@ import java.util.Set;
 public class PartialUpdate {
     private Validator validator;
 
-    public Optional<Todo> todoPartialUpdate(UpdateTodo task, Optional<Todo> todoData) {
-        todoData.get().updateTask(task);
-        validateTodo(todoData.get());
-        return todoData;
+    public Todo todoPartialUpdate(UpdateTodo updateTodo, Todo todo) {
+        todo.setDescription(updateTodo.getDescription() == null ? todo.getDescription() : updateTodo.getDescription());
+        todo.setCompleted(updateTodo.getCompleted() == null ? todo.isCompleted() : updateTodo.getCompleted());
+        validateTodo(todo);
+        return todo;
     }
 
     public void validateTodo(Todo todo) {
@@ -31,10 +31,11 @@ public class PartialUpdate {
         }
     }
 
-    public Optional<Users> userPartialUpdate(UpdateUser user, Optional<Users> userData) {
-        userData.get().updateUser(user);
-        validateUser(userData.get());
-        return userData;
+    public Users userPartialUpdate(UpdateUser updateUser, Users user) {
+        user.setName(updateUser.getName() == null ? user.getName() : updateUser.getName());
+        user.setPassword(updateUser.getPassword() == null ? user.getPassword() : updateUser.getPassword());
+        validateUser(user);
+        return user;
     }
 
     public void validateUser(Users user) {

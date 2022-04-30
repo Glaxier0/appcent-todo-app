@@ -103,10 +103,12 @@ public class UserController {
         if (updateUser.getPassword() != null) {
             updateUser.setPassword(passwordEncoder.encode(updateUser.getPassword()));
         }
-        userData = partialUpdate.userPartialUpdate(updateUser, userData);
-        Users user = userData.get();
-        user.setUpdatedAt(ZonedDateTime.now(ZoneOffset.UTC));
-        userService.save(user);
+        if (userData.isPresent()) {
+            Users user = userData.get();
+            user = partialUpdate.userPartialUpdate(updateUser, user);
+            user.setUpdatedAt(ZonedDateTime.now(ZoneOffset.UTC));
+            userService.save(user);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
