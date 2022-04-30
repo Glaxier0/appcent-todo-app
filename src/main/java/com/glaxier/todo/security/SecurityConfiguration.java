@@ -17,10 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -34,7 +30,6 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private String[] WHITELIST = {
             "/users/register",
             "/users/login",
-            h2ConsolePath + "/**",
             "/swagger-ui/**",
             "/swagger-resources/**",
             "/webjars/**",
@@ -74,8 +69,10 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests().antMatchers(WHITELIST).permitAll()
+                .antMatchers(h2ConsolePath + "/**").permitAll()
                 .anyRequest().authenticated();
-        http.headers().frameOptions().sameOrigin();
+
+        http.headers().frameOptions().disable();
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
