@@ -1,7 +1,9 @@
 package com.glaxier.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.glaxier.todo.dto.request.UpdateUser;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -55,17 +57,12 @@ public class Users {
     private List<String> tokens = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    @JsonIgnore
+    @Hidden
     private List<Todo> todos = new ArrayList<>();
 
     public Users(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public void updateUser(UpdateUser updateUser) {
-        this.name = updateUser.getName() == null ? this.name : updateUser.getName();
-        this.password = updateUser.getPassword() == null ? this.password : updateUser.getPassword();
     }
 }

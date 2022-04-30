@@ -1,7 +1,7 @@
 package com.glaxier.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.glaxier.todo.dto.request.UpdateTodo;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,8 +25,8 @@ public class Todo {
     @NotBlank(message = "Description required")
     private String description;
 
-    @Column(name = "completed")
-    private boolean isCompleted = false;
+    @Column
+    private boolean completed = false;
 
     @Column(name = "created_at")
     private ZonedDateTime createdAt;
@@ -36,11 +36,5 @@ public class Todo {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private Users user;
-
-    public void updateTask(UpdateTodo updateTodo) {
-        this.description = updateTodo.getDescription() == null ? this.description : updateTodo.getDescription();
-        this.isCompleted = updateTodo.getCompleted() == null ? this.isCompleted : updateTodo.getCompleted();
-    }
 }
