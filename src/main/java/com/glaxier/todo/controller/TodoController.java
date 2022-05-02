@@ -1,5 +1,6 @@
 package com.glaxier.todo.controller;
 
+import com.glaxier.todo.dto.request.TodoRequest;
 import com.glaxier.todo.dto.request.UpdateTodo;
 import com.glaxier.todo.dto.response.TodoResponse;
 import com.glaxier.todo.model.Todo;
@@ -30,9 +31,10 @@ public class TodoController {
     PartialUpdate partialUpdate;
 
     @PostMapping("/todos")
-    public ResponseEntity<TodoResponse> saveTodo(@RequestBody @Valid Todo todo) {
+    public ResponseEntity<TodoResponse> saveTodo(@RequestBody @Valid TodoRequest todoRequest) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> users = userService.findById(userDetails.getId());
+        Todo todo = new Todo(todoRequest.getDescription(), todoRequest.isCompleted());
         if (users.isPresent()) {
             todo.setUser(users.get());
             users.get().getTodos().add(todo);
@@ -59,7 +61,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos/{id}")
-    public ResponseEntity<Todo> getTask(@PathVariable("id") int id) {
+    public ResponseEntity<Todo> getTodo(@PathVariable("id") int id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
         Optional<Todo> todoData = todoService.findByIdAndUserId(id, userId);

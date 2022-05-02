@@ -1,9 +1,9 @@
 package com.glaxier.todo.controller;
 
-import com.glaxier.todo.dto.response.JwtResponse;
 import com.glaxier.todo.dto.request.LoginForm;
 import com.glaxier.todo.dto.request.RegisterForm;
 import com.glaxier.todo.dto.request.UpdateUser;
+import com.glaxier.todo.dto.response.JwtResponse;
 import com.glaxier.todo.dto.response.ProfileResponse;
 import com.glaxier.todo.dto.response.RegisterResponse;
 import com.glaxier.todo.model.Users;
@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -60,12 +61,12 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        Users user = userService.findById(userDetails.getId()).get();
+        Users user = userService.findByEmail(userDetails.getEmail()).get();
         user.getTokens().add(token);
         userService.save(user);
 
-        return new ResponseEntity<>(new JwtResponse(userDetails.getUsername(),
-                userDetails.getEmail(), token), HttpStatus.OK);
+        return new ResponseEntity<>(new JwtResponse(user.getName(),
+                user.getEmail(), token), HttpStatus.OK);
     }
 
     @PostMapping("/users/logout")
@@ -121,6 +122,5 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }

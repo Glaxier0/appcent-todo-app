@@ -15,6 +15,8 @@ public interface UserService {
     Users save(Users user);
 
     void deleteById(Integer id);
+
     Optional<Users> findByEmail(String email);
+
     Boolean existsByEmail(String email);
 }

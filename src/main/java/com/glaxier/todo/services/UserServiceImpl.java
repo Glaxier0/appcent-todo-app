@@ -1,6 +1,5 @@
 package com.glaxier.todo.services;
 
-import com.glaxier.todo.model.Todo;
 import com.glaxier.todo.model.Users;
 import com.glaxier.todo.repository.UserRepository;
 import lombok.AllArgsConstructor;

@@ -13,6 +13,7 @@ public interface TodoService {
     Optional<Todo> findByIdAndUserId(int id, int userId);
 
     void deleteAll();
+
     void deleteAllByUserId(int userId);
 
     Todo save(Todo todo);
