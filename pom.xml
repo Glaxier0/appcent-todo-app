@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.glaxier</groupId>
 	<artifactId>todo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>todo</name>
 	<description>To-Do App with Spring Boot</description>
 	<properties>
@@ -91,6 +91,14 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.17</source>
+					<target>1.17</target>
 				</configuration>
 			</plugin>
 		</plugins>
