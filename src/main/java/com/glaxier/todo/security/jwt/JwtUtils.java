@@ -1,20 +1,19 @@
 package com.glaxier.todo.security.jwt;
 
-import java.util.Date;
-import java.util.Optional;
-
 import com.glaxier.todo.model.Users;
 import com.glaxier.todo.services.UserDetailsImpl;
 import com.glaxier.todo.services.UserService;
+import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
 
 import javax.transaction.Transactional;
+import java.util.Date;
+import java.util.Optional;
 
 @Component
 @Transactional
@@ -43,6 +42,7 @@ public class JwtUtils {
     public String getEmailFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
+
     public boolean validateJwtToken(String authToken) {
         try {
             Optional<Users> userData = userService.findByEmail(Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken)

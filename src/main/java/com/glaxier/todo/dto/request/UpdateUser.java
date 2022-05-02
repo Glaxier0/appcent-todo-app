@@ -2,7 +2,6 @@ package com.glaxier.todo.dto.request;
 
 import lombok.*;
 
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 
 @Getter

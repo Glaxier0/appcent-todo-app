@@ -65,7 +65,7 @@ class UserControllerTest {
     SecurityContext securityContext;
 
     @Test
-    void saveUser_should_return_created() throws Exception {
+    void saveUser_shouldReturnCreatedStatus() throws Exception {
         RegisterForm registerForm = new RegisterForm("test", "test@test.com", "testtest");
         mockMvc.perform(post("/users/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ class UserControllerTest {
     }
 
     @Test
-    void login_should_return_jwt_token() throws Exception {
+    void login_shouldReturnJwtToken() throws Exception {
         Users user = new Users("test", "test@test.com", "testtest");
         LoginForm loginForm = new LoginForm(user.getEmail(), user.getPassword());
         when(userDetailsService.loadUserByUsername("test@test.com"))
@@ -93,7 +93,7 @@ class UserControllerTest {
 
     @Test
     @WithMockCustomUser
-    void logout_should_return_ok() throws Exception {
+    void logout_shouldReturnOk() throws Exception {
         Users user = new Users(1, "test@test.com", "testtest");
         when(userService.findById(anyInt())).thenReturn(Optional.of(user));
         when(userService.save(any())).thenReturn(new Users());
@@ -104,7 +104,7 @@ class UserControllerTest {
 
     @Test
     @WithMockCustomUser
-    void logoutAll_should_return_200() throws Exception {
+    void logoutAll_shouldReturnOk() throws Exception {
         Users user = new Users(1, "test@test.com", "testtest");
         when(userService.findById(anyInt())).thenReturn(Optional.of(user));
         mockMvc.perform(post("/users/logoutAll")).andExpect(status().isOk()).andDo(print());
@@ -112,7 +112,7 @@ class UserControllerTest {
 
     @Test
     @WithMockCustomUser
-    void getProfile_should_return_same_email() throws Exception {
+    void getProfile_shouldReturnSameEmail() throws Exception {
         Users user = new Users(1, "test@test.com", "testtest");
         when(userService.findById(anyInt())).thenReturn(Optional.of(user));
         mockMvc.perform(get("/users/me")).andExpect(status().isOk())
@@ -121,7 +121,7 @@ class UserControllerTest {
 
     @Test
     @WithMockCustomUser
-    void updateProfile_should_return_ok() throws Exception {
+    void updateProfileShouldReturnOk() throws Exception {
         Users user = new Users(1, "test@test.com", "testtest");
         UpdateUser updateUser = new UpdateUser("test2", "test12345");
         when(userService.findById(anyInt())).thenReturn(Optional.of(user));
@@ -135,7 +135,7 @@ class UserControllerTest {
 
     @Test
     @WithMockCustomUser
-    void deleteProfile() throws Exception {
+    void deleteProfile_ShouldReturnOk() throws Exception {
         doNothing().when(userService).deleteById(any());
         mockMvc.perform(delete("/users/me"))
                 .andExpect(status().isOk())

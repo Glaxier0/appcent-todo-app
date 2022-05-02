@@ -1,9 +1,9 @@
 package com.glaxier.todo.controller;
 
-import com.glaxier.todo.dto.response.JwtResponse;
 import com.glaxier.todo.dto.request.LoginForm;
 import com.glaxier.todo.dto.request.RegisterForm;
 import com.glaxier.todo.dto.request.UpdateUser;
+import com.glaxier.todo.dto.response.JwtResponse;
 import com.glaxier.todo.dto.response.ProfileResponse;
 import com.glaxier.todo.dto.response.RegisterResponse;
 import com.glaxier.todo.model.Users;
@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
