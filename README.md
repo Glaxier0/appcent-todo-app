@@ -14,7 +14,9 @@ If you wish to read swagger documentation on [Swagger online editor](https://edi
 ## Build App
 
 ## Running tests
-
+```
 mvn clean test 
-
+```
 ## Running App
+
+## Using Docker Image
