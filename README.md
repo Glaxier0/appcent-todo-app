@@ -1,10 +1,11 @@
 # Appcent-todo-app-backend
 
-[Heroku](https://glaxier-todo.herokuapp.com/)
+Backend of todo app project for Appcent Challenge Project. App is deployed on [Heroku](https://glaxier-todo.herokuapp.com/). 
 
-[Swagger-json](https://glaxier-todo.herokuapp.com/v3/api-docs) - [Swagger editor](https://editor.swagger.io/)
+All REST API endpoint documentations can be found at [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
 
-[Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html)
+If you wish to read swagger documentation on [Swagger online editor](https://editor.swagger.io/) just copy [Swagger json response](https://glaxier-todo.herokuapp.com/v3/api-docs) and paste it to online editor.
+
 
 [H2-console](https://glaxier-todo.herokuapp.com/h2-console/)
 
