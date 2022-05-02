@@ -2,9 +2,7 @@ package com.glaxier.todo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.Hidden;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -15,6 +13,7 @@ import java.time.ZonedDateTime;
 @ToString
 @Entity
 @Table(name = "todos")
+@NoArgsConstructor
 public class Todo {
     @Id
     @Column(name = "todo_id")
@@ -37,4 +36,14 @@ public class Todo {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Users user;
+
+    public Todo(int id, String description) {
+        this.id = id;
+        this.description = description;
+    }
+
+    public Todo(String description, boolean completed) {
+        this.description = description;
+        this.completed = completed;
+    }
 }

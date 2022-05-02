@@ -60,12 +60,12 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtUtils.generateJwtToken(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        Users user = userService.findById(userDetails.getId()).get();
+        Users user = userService.findByEmail(userDetails.getEmail()).get();
         user.getTokens().add(token);
         userService.save(user);
 
-        return new ResponseEntity<>(new JwtResponse(userDetails.getUsername(),
-                userDetails.getEmail(), token), HttpStatus.OK);
+        return new ResponseEntity<>(new JwtResponse(user.getName(),
+                user.getEmail(), token), HttpStatus.OK);
     }
 
     @PostMapping("/users/logout")
@@ -121,6 +121,5 @@ public class UserController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }

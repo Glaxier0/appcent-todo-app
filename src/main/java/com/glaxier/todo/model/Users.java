@@ -65,4 +65,10 @@ public class Users {
         this.email = email;
         this.password = password;
     }
+
+    public Users(int id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
 }
