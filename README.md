@@ -78,7 +78,7 @@ if docker image is shown there, you successfully started app using docker image.
 After running app locally you can check avaible endpoints by adding /swagger-ui/index.html to end of your base url.
 >http://localhost:8080/swagger-ui/index.html
 
-## How to use API
+## How to use the API
 There is 2 enpoints that doesnt require Authentication: /users/register and /users/login
 
 - Users should first make a register request to /users/register endpoint
