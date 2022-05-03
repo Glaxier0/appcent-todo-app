@@ -81,7 +81,7 @@ After running app locally you can check avaible endpoints by adding /swagger-ui/
 >http://localhost:8080/swagger-ui/index.html
 
 ## How to use the API
-There is 2 enpoints that doesnt require Authentication: /users/register and /users/login
+There are 2 enpoints that doesnt require Authentication: /users/register and /users/login
 
 - Users should first make a register request to /users/register endpoint
 - After registering now make a login request to /users/login endpoint
@@ -110,7 +110,7 @@ if (pm.response.code === 200) {
     pm.environment.set('authToken', pm.response.json().token)
 }
 ```
-- In Todo App collection click every request and change their Authorization > Type > Bearer Token
+- In Todo App collection click every request (except "Create User" and "Login User") and change their Authorization > Type > Bearer Token
 - Now Postman setup is done and you can test API using postman
 - All you have to do is check required params to the every request from [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
 - Then make requests with required params.
