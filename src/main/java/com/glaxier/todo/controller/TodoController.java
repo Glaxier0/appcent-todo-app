@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,30 +50,39 @@ public class TodoController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<Todo>> getTodos() {
+    public ResponseEntity<List<TodoResponse>> getTodos() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> users = userService.findById(userDetails.getId());
 
-        List<Todo> todos = users.get().getTodos();
-        if (todos.isEmpty()) {
+        List<Todo> todoList = users.get().getTodos();
+        List<TodoResponse> todoResponseList = new ArrayList<>();
+        for (Todo todo : todoList) {
+            TodoResponse todoResponse = new TodoResponse(todo.getId(), todo.getDescription(), todo.isCompleted(),
+                    todo.getCreatedAt(), todo.getUpdatedAt());
+            todoResponseList.add(todoResponse);
+        }
+        if (todoResponseList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(users.get().getTodos(), HttpStatus.OK);
+        return new ResponseEntity<>(todoResponseList, HttpStatus.OK);
     }
 
     @GetMapping("/todos/{id}")
-    public ResponseEntity<Todo> getTodo(@PathVariable("id") int id) {
+    public ResponseEntity<TodoResponse> getTodo(@PathVariable("id") int id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
         Optional<Todo> todoData = todoService.findByIdAndUserId(id, userId);
         if (todoData.isPresent()) {
-            return new ResponseEntity<>(todoData.get(), HttpStatus.OK);
+            Todo todo = todoData.get();
+            TodoResponse todoResponse = new TodoResponse(todo.getId(), todo.getDescription(), todo.isCompleted(),
+                    todo.getCreatedAt(), todo.getUpdatedAt());
+            return new ResponseEntity<>(todoResponse, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PatchMapping("/todos/{id}")
-    public ResponseEntity<Todo> updateTask(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo updateTodo) {
+    public ResponseEntity<HttpStatus> updateTask(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo updateTodo) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
         Optional<Todo> todoData = todoService.findByIdAndUserId(id, userId);

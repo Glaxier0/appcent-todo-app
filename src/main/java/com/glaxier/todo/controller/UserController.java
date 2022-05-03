@@ -70,7 +70,7 @@ public class UserController {
     }
 
     @PostMapping("/users/logout")
-    public ResponseEntity<?> logout(@RequestHeader HttpHeaders httpHeaders) {
+    public ResponseEntity<HttpStatus> logout(@RequestHeader HttpHeaders httpHeaders) {
         String token = jwtUtils.getToken(httpHeaders);
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = userService.findById(userDetails.getId()).get();
@@ -80,7 +80,7 @@ public class UserController {
     }
 
     @PostMapping("/users/logoutAll")
-    public ResponseEntity<?> logoutAll() {
+    public ResponseEntity<HttpStatus> logoutAll() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = userService.findById(userDetails.getId()).get();
         user.setTokens(new ArrayList<>());
@@ -89,7 +89,7 @@ public class UserController {
     }
 
     @GetMapping("/users/me")
-    public ResponseEntity<?> getProfile() {
+    public ResponseEntity<ProfileResponse> getProfile() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = userService.findById(userDetails.getId()).get();
         return new ResponseEntity<>(new ProfileResponse(user.getName(), user.getEmail(),
@@ -97,7 +97,7 @@ public class UserController {
     }
 
     @PatchMapping("/users/me")
-    public ResponseEntity<?> updateProfile(@RequestBody @Valid UpdateUser updateUser) {
+    public ResponseEntity<HttpStatus> updateProfile(@RequestBody @Valid UpdateUser updateUser) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> userData = userService.findById(userDetails.getId());
 

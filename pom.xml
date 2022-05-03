@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.glaxier</groupId>
 	<artifactId>todo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>todo</name>
 	<description>To-Do App with Spring Boot</description>
 	<properties>
