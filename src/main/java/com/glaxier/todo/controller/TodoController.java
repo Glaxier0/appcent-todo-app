@@ -88,7 +88,7 @@ public class TodoController {
 
     @PatchMapping("/todos/{id}")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<HttpStatus> updateTask(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo updateTodo) {
+    public ResponseEntity<HttpStatus> updateTodo(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo updateTodo) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
         Optional<Todo> todoData = todoService.findByIdAndUserId(id, userId);
@@ -105,7 +105,7 @@ public class TodoController {
 
     @DeleteMapping("/todos/{id}")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<HttpStatus> deleteTask(@PathVariable("id") int id) {
+    public ResponseEntity<HttpStatus> deleteTodo(@PathVariable("id") int id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
         Optional<Todo> todoData = todoService.findByIdAndUserId(id, userId);
@@ -119,7 +119,7 @@ public class TodoController {
 
     @DeleteMapping("/todos")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<HttpStatus> deleteAllTasks() {
+    public ResponseEntity<HttpStatus> deleteAllTodos() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
 

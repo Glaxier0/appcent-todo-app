@@ -106,7 +106,7 @@ class TodoControllerTest {
     }
 
     @Test
-    void updateTask_shouldReturnOk() throws Exception {
+    void updateTodo_shouldReturnOk() throws Exception {
         int id = 1;
         UpdateTodo updateTodo = new UpdateTodo("Unit test done", true);
 
@@ -120,7 +120,7 @@ class TodoControllerTest {
     }
 
     @Test
-    void deleteTask_shouldReturnOk() throws Exception {
+    void deleteTodo_shouldReturnOk() throws Exception {
         int id = 1;
         when(todoService.findByIdAndUserId(anyInt(), anyInt()))
                 .thenReturn(Optional.of(new Todo(id, "Do unit test.")));
@@ -130,7 +130,7 @@ class TodoControllerTest {
     }
 
     @Test
-    void deleteAllTasks_shouldReturnOk() throws Exception {
+    void deleteAllTodos_shouldReturnOk() throws Exception {
         int userId = 1;
         doNothing().when(todoService).deleteAllByUserId(userId);
         mockMvc.perform(delete("/todos/"))
