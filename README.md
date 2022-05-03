@@ -16,6 +16,8 @@ If you wish to read swagger documentation on [Swagger online editor](https://edi
 
 [Docker-Hub](https://hub.docker.com/repository/docker/glaxier0/appcent-todo-app)
 
+[Test API using swagger-ui](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#test-api-using-swagger-ui)
+
 [Test API using postman](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#test-api-using-postman)
 
 ### DISCLAIMER
@@ -91,7 +93,7 @@ There are 2 enpoints that doesnt require Authentication: /users/register and /us
 
 All REST API endpoint documentations can be found at [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
 
-## Test API using postman
+## Test API Using Postman
 
 - First download [collection](https://github.com/Glaxier0/appcent-todo-app/blob/main/Todo%20App.postman_collection.json).
 - After downloading go to the postman and click import button in left up corner.
@@ -114,3 +116,17 @@ if (pm.response.code === 200) {
 - Now Postman setup is done and you can test API using postman
 - All you have to do is check required params to the every request from [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
 - Then make requests with required params.
+
+## Test API Using Swagger UI
+- Open [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
+- First thing to to is make a post request to /users/register.
+- Click try it out and make a valid user.
+- Now make a login request to /users/login
+- Click try it out and make a login request with same email and password with register request
+- If you tried login request with correct credentials it should return 200 with token field.
+- Copy token value in response.
+- Now click Authorize button or click any lock icon in the right side of requests.
+- Paste token value to value and click authorize.
+- Now you can make requests to all endpoints.
+- /users/logout and /users/logoutAll deletes jwt tokens attached to users.
+- If you make request to this 2 endpoints you have to login again and get new token.
