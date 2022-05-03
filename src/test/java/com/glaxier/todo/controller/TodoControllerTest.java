@@ -102,7 +102,6 @@ class TodoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(id))
                 .andExpect(jsonPath("description").value("Do unit test."))
-                .andExpect(jsonPath("user.id").value(id))
                 .andDo(print());
     }
 
