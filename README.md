@@ -1,6 +1,6 @@
 # Appcent-todo-app-backend
 
-Backend of todo app project for Appcent Challenge Project. 
+Backend of todo app project for Appcent Challenge Project with jwt auth, password encoding and unit testing. 
 
 App is deployed on [Heroku](https://glaxier-todo.herokuapp.com/) and ready to use. 
 
