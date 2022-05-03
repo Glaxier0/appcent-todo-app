@@ -16,9 +16,9 @@ If you wish to read swagger documentation on [Swagger online editor](https://edi
 
 [Docker-Hub](https://hub.docker.com/repository/docker/glaxier0/appcent-todo-app)
 
-[Test API using swagger-ui](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#test-api-using-swagger-ui)
+[Test API using swagger-ui](https://github.com/Glaxier0/appcent-todo-app#test-api-using-swagger-ui)
 
-[Test API using postman](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#test-api-using-postman)
+[Test API using postman](https://github.com/Glaxier0/appcent-todo-app#test-api-using-postman)
 
 ### DISCLAIMER
 If you try app on heroku, first time loading app will take some time (5-6 secs) because of heroku. So please be patient.
@@ -37,7 +37,7 @@ There is 2 options when building the app
 
 - If you want to change any properties go to [application.properties](https://github.com/Glaxier0/appcent-todo-app/blob/main/src/main/resources/application.properties)
  
-- Your app is now ready to next step [Running App](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#running-app).
+- Your app is now ready to next step [Running App](https://github.com/Glaxier0/appcent-todo-app#running-app).
 
 ### Build App locally from Docker Hub
 
@@ -51,7 +51,7 @@ docker pull glaxier0/appcent-todo-app
 ```
 docker images
 ```
-- If image is showing there you are ready to next step [Running App](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#running-app).
+- If image is showing there you are ready to next step [Running App](https://github.com/Glaxier0/appcent-todo-app#running-app).
 
 ## Running tests
 
