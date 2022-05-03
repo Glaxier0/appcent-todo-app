@@ -10,6 +10,8 @@ import com.glaxier.todo.services.TodoService;
 import com.glaxier.todo.services.UserDetailsImpl;
 import com.glaxier.todo.services.UserService;
 import com.glaxier.todo.util.PartialUpdate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ public class TodoController {
     PartialUpdate partialUpdate;
 
     @PostMapping("/todos")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<TodoResponse> saveTodo(@RequestBody @Valid TodoRequest todoRequest) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> users = userService.findById(userDetails.getId());
@@ -50,6 +53,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<List<TodoResponse>> getTodos() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> users = userService.findById(userDetails.getId());
@@ -68,6 +72,7 @@ public class TodoController {
     }
 
     @GetMapping("/todos/{id}")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<TodoResponse> getTodo(@PathVariable("id") int id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
@@ -82,6 +87,7 @@ public class TodoController {
     }
 
     @PatchMapping("/todos/{id}")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> updateTask(@PathVariable("id") int id, @RequestBody @Valid UpdateTodo updateTodo) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
@@ -98,6 +104,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/todos/{id}")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> deleteTask(@PathVariable("id") int id) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
@@ -111,6 +118,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/todos")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> deleteAllTasks() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = userDetails.getId();
