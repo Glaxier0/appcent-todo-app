@@ -11,6 +11,8 @@ import com.glaxier.todo.security.jwt.JwtUtils;
 import com.glaxier.todo.services.UserDetailsImpl;
 import com.glaxier.todo.services.UserService;
 import com.glaxier.todo.util.PartialUpdate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
@@ -70,6 +72,8 @@ public class UserController {
     }
 
     @PostMapping("/users/logout")
+    @Operation(description = "Deletes jwt token attached to user",
+            security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> logout(@RequestHeader HttpHeaders httpHeaders) {
         String token = jwtUtils.getToken(httpHeaders);
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -80,6 +84,8 @@ public class UserController {
     }
 
     @PostMapping("/users/logoutAll")
+    @Operation(description = "Deletes all jwt tokens attached to user",
+            security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> logoutAll() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = userService.findById(userDetails.getId()).get();
@@ -89,6 +95,7 @@ public class UserController {
     }
 
     @GetMapping("/users/me")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<ProfileResponse> getProfile() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Users user = userService.findById(userDetails.getId()).get();
@@ -97,6 +104,7 @@ public class UserController {
     }
 
     @PatchMapping("/users/me")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> updateProfile(@RequestBody @Valid UpdateUser updateUser) {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Optional<Users> userData = userService.findById(userDetails.getId());
@@ -114,6 +122,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/me")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<HttpStatus> deleteProfile() {
         UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
