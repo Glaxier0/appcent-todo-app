@@ -86,3 +86,5 @@ There is 2 enpoints that doesnt require Authentication: /users/register and /use
 - If tried with correct credentials login request should return jwt token.
 - Now you can use all endpoints with that jwt token
 - All you have to do is add "Authorization" header a value like this "Bearer {your_token}"
+
+All REST API endpoint documentations can be found at [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
