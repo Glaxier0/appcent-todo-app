@@ -16,6 +16,8 @@ If you wish to read swagger documentation on [Swagger online editor](https://edi
 
 [Docker-Hub](https://hub.docker.com/repository/docker/glaxier0/appcent-todo-app)
 
+[Test API using postman](https://github.com/Glaxier0/appcent-todo-app/edit/main/README.md#test-api-using-postman)
+
 ### DISCLAIMER
 If you try app on heroku, first time loading app will take some time (5-6 secs) because of heroku. So please be patient.
 
@@ -88,3 +90,27 @@ There is 2 enpoints that doesnt require Authentication: /users/register and /use
 - All you have to do is add "Authorization" header a value like this "Bearer {your_token}"
 
 All REST API endpoint documentations can be found at [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
+
+## Test API using postman
+
+- First download [collection](https://github.com/Glaxier0/appcent-todo-app/blob/main/Todo%20App.postman_collection.json).
+- After downloading go to the postman and click import button in left up corner.
+- Select downloaded file and import as collection.
+- Now in the right up corner select "No enviroment" then click eye icon next to it.
+- Click add button enviroment button and name it Todo(Production).
+- Add a new variable with name url and paste "https://glaxier-todo.herokuapp.com" exactly this to initial value.
+- If initial value and current value is "https://glaxier-todo.herokuapp.com/" like this delete last "/" .
+- it should be exactly like this "https://glaxier-todo.herokuapp.com" without "/" after .com
+- Click save button in the right up corner.
+- Now in the left side extend Todo App collection and click Create User > Authorization > Type > No Auth and save it.
+- Now click Login User > Authorization > Type > No Auth and save it.
+- In login User > Tests copy and paste below code.
+```
+if (pm.response.code === 200) {
+    pm.environment.set('authToken', pm.response.json().token)
+}
+```
+- In Todo App collection click every request and change their Authorization > Type > Bearer Token
+- Now Postman setup is done and you can test API using postman
+- All you have to do is check required params to the every request from [Swagger-ui](https://glaxier-todo.herokuapp.com/swagger-ui/index.html).
+- Then make requests with required params.
