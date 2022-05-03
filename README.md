@@ -129,4 +129,4 @@ if (pm.response.code === 200) {
 - Paste token value to value and click authorize.
 - Now you can make requests to all endpoints.
 - /users/logout and /users/logoutAll deletes jwt tokens attached to users.
-- If you make request to this 2 endpoints you have to login again and get new token.
+- If you make request to these 2 endpoints you have to login again and get a new token.
